@@ -1,0 +1,846 @@
+
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#0B0F17">
+    <meta name="description" content="VoltCraft delivers industrial electrical equipment, power distribution solutions, and infrastructure supplies.">
+    <title>VoltCraft | Industrial Electrical Solutions</title>
+
+    <script>
+        const savedTheme = localStorage.getItem("voltcraft-theme");
+        if (savedTheme === "light") {
+            document.documentElement.classList.remove("dark");
+        } else {
+            document.documentElement.classList.add("dark");
+        }
+    </script>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        primary: "#3B82F6",
+                        darkBg: "#0B0F17",
+                        darkCard: "#1E2430",
+                        lightBg: "#F8F6F0",
+                        lightAccent: "#1E293B"
+                    },
+                    borderRadius: {
+                        material: "2rem"
+                    },
+                    boxShadow: {
+                        glow: "0 0 65px rgba(59,130,246,.25)"
+                    }
+                }
+            }
+        };
+    </script>
+
+    <style>
+        * {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background: #F8F6F0;
+            color: #1E293B;
+            transition: background .3s ease, color .3s ease;
+        }
+
+        .dark body {
+            background: #0B0F17;
+            color: #F8FAFC;
+        }
+
+        .surface {
+            background: #FFFFFF;
+            transition: background .3s ease, border-color .3s ease;
+        }
+
+        .dark .surface {
+            background: #1E2430;
+        }
+
+        .muted {
+            color: #64748B;
+        }
+
+        .dark .muted {
+            color: #A1AAB9;
+        }
+
+        .page-content {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .page-content.loaded {
+            visibility: visible;
+            animation: fadeUp .85s ease forwards;
+        }
+
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(25px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero-glow {
+            background: radial-gradient(
+                circle,
+                rgba(59,130,246,.28),
+                transparent 70%
+            );
+        }
+
+        .feature-story {
+            min-height: 60vh;
+            display: flex;
+            align-items: center;
+        }
+
+        .story-alt {
+            background: #EAEFF7;
+        }
+
+        .dark .story-alt {
+            background: #131C2C;
+        }
+
+        .product-card {
+            transition: transform .3s ease, box-shadow .3s ease;
+        }
+
+        .product-card:hover {
+            transform: translateY(-7px);
+            box-shadow: 0 18px 40px rgba(59,130,246,.12);
+        }
+
+        .filter-btn.active {
+            background: #3B82F6;
+            color: white;
+        }
+
+        .icon-box {
+            background: rgba(59,130,246,.13);
+            color: #3B82F6;
+        }
+
+        input, textarea {
+            outline: none;
+        }
+
+        .dark input, .dark textarea {
+            background: #111827;
+            color: white;
+            border-color: #374151;
+        }
+
+        input:focus, textarea:focus {
+            border-color: #3B82F6 !important;
+            box-shadow: 0 0 0 3px rgba(59,130,246,.12);
+        }
+
+        .btn-primary {
+            background: #3B82F6;
+            color: white;
+            transition: .25s;
+        }
+
+        .btn-primary:hover {
+            background: #2563EB;
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background: #1E293B;
+            color: white;
+        }
+
+        .dark .btn-secondary {
+            background: #334155;
+        }
+
+        .hero-image {
+            background:
+                linear-gradient(145deg, rgba(30,41,59,.15), rgba(11,15,23,.8)),
+                url("https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?auto=format&fit=crop&w=1400&q=85")
+                center/cover;
+        }
+
+        .product-image {
+            height: 210px;
+            width: 100%;
+            object-fit: cover;
+            background: #111827;
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                scroll-behavior: auto !important;
+                animation-duration: .01ms !important;
+                transition-duration: .01ms !important;
+            }
+        }
+    </style>
+</head>
+
+<body class="antialiased">
+
+<div class="page-content" id="pageContent">
+
+    <!-- Header -->
+    <header class="sticky top-0 z-50 border-b border-gray-200/50 dark:border-gray-800/70 backdrop-blur-xl bg-white/80 dark:bg-darkBg/85">
+        <nav class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+
+            <a href="#home" class="flex items-center gap-3">
+                <div class="w-11 h-11 rounded-2xl bg-primary flex items-center justify-center text-white text-xl font-black">
+                    V
+                </div>
+                <div>
+                    <h1 class="font-extrabold text-xl tracking-tight">VoltCraft</h1>
+                    <p class="text-[10px] muted tracking-[.2em] uppercase">Electrical Supplies</p>
+                </div>
+            </a>
+
+            <div class="hidden lg:flex items-center gap-8 text-sm font-medium">
+                <a href="#home" class="hover:text-primary transition">Home</a>
+                <a href="#about" class="hover:text-primary transition">About</a>
+                <a href="#products" class="hover:text-primary transition">Products</a>
+                <a href="#features" class="hover:text-primary transition">Solutions</a>
+                <a href="#testimonials" class="hover:text-primary transition">Reviews</a>
+                <a href="#contact" class="hover:text-primary transition">Contact</a>
+            </div>
+
+            <div class="flex items-center gap-3">
+                <button id="themeToggle" aria-label="Toggle color theme"
+                    class="w-11 h-11 rounded-full surface border border-gray-200 dark:border-gray-700 flex items-center justify-center text-lg">
+                    <span id="themeIcon">☀️</span>
+                </button>
+
+                <a href="#contact" class="hidden sm:inline-flex btn-primary px-5 py-3 rounded-full text-sm font-bold">
+                    Get a Quote
+                </a>
+
+                <button id="menuToggle" class="lg:hidden text-2xl p-2" aria-label="Toggle navigation">
+                    ☰
+                </button>
+            </div>
+        </nav>
+
+        <div id="mobileMenu" class="hidden lg:hidden px-6 pb-5 space-y-4 text-sm font-medium">
+            <a class="block" href="#home">Home</a>
+            <a class="block" href="#about">About</a>
+            <a class="block" href="#products">Products</a>
+            <a class="block" href="#features">Solutions</a>
+            <a class="block" href="#testimonials">Reviews</a>
+            <a class="block" href="#contact">Contact</a>
+        </div>
+    </header>
+
+    <main>
+
+        <!-- Hero -->
+        <section id="home" class="max-w-7xl mx-auto px-6 pt-20 pb-24">
+            <div class="grid lg:grid-cols-2 gap-14 items-center">
+
+                <div>
+                    <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-500/10 text-primary text-xs font-bold mb-8">
+                        <span class="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
+                        ENGINEERING POWER SINCE 2004
+                    </div>
+
+                    <h2 class="text-5xl md:text-6xl xl:text-7xl font-black leading-[1.08] tracking-tight">
+                        Powering Tomorrow's
+                        <span class="text-primary">Infrastructure</span>
+                        Today.
+                    </h2>
+
+                    <p class="muted text-lg leading-8 mt-7 max-w-xl">
+                        Reliable industrial electrical supplies, advanced power distribution equipment, and engineered solutions built to keep your operations running.
+                    </p>
+
+                    <div class="flex flex-wrap gap-4 mt-9">
+                        <a href="#products" class="btn-primary px-7 py-4 rounded-full font-bold">
+                            Explore Products →
+                        </a>
+                        <a href="#about" class="btn-secondary px-7 py-4 rounded-full font-bold">
+                            Our Company
+                        </a>
+                    </div>
+
+                    <div class="flex flex-wrap gap-8 mt-12">
+                        <div>
+                            <h3 class="text-3xl font-black">20+</h3>
+                            <p class="muted text-sm mt-1">Years Experience</p>
+                        </div>
+                        <div>
+                            <h3 class="text-3xl font-black">500+</h3>
+                            <p class="muted text-sm mt-1">Projects Supplied</p>
+                        </div>
+                        <div>
+                            <h3 class="text-3xl font-black">98%</h3>
+                            <p class="muted text-sm mt-1">Client Satisfaction</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="relative">
+                    <div class="absolute inset-0 hero-glow blur-3xl"></div>
+                    <div class="hero-image relative h-[480px] rounded-[2.5rem] overflow-hidden shadow-glow border border-blue-500/20">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/10 to-transparent"></div>
+
+                        <div class="absolute top-7 right-7 bg-white/10 backdrop-blur-xl border border-white/20 rounded-2xl px-5 py-4 text-white">
+                            <p class="text-xs text-gray-300">Power Systems</p>
+                            <p class="font-bold text-xl mt-1">Engineered to Perform</p>
+                        </div>
+
+                        <div class="absolute bottom-8 left-8 right-8 text-white">
+                            <span class="text-xs uppercase tracking-[.25em] text-blue-300">Built for reliability</span>
+                            <h3 class="text-3xl font-black mt-2">Powering Every Connection.</h3>
+                            <p class="text-gray-300 mt-2">Precision equipment. Dependable supply.</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- About -->
+        <section id="about" class="py-24 bg-blue-500/[.035]">
+            <div class="max-w-7xl mx-auto px-6">
+                <div class="grid lg:grid-cols-2 gap-16 items-center">
+
+                    <div>
+                        <span class="text-primary text-sm font-bold uppercase tracking-widest">Who We Are</span>
+                        <h2 class="text-4xl md:text-5xl font-black mt-5 leading-tight">
+                            Electrical Expertise That Moves Industries Forward.
+                        </h2>
+                        <p class="muted leading-8 mt-7">
+                            VoltCraft is a dedicated electrical equipment supply partner with over two decades of industry experience. We connect businesses with dependable components, advanced distribution systems, and practical engineering support.
+                        </p>
+                        <p class="muted leading-8 mt-4">
+                            From large-scale infrastructure developments to demanding industrial environments, our focus remains the same: quality products, transparent procurement, and reliable delivery.
+                        </p>
+
+                        <div class="flex flex-wrap gap-4 mt-8">
+                            <span class="flex items-center gap-2 text-sm font-semibold">
+                                <span class="text-primary">✓</span> Certified Products
+                            </span>
+                            <span class="flex items-center gap-2 text-sm font-semibold">
+                                <span class="text-primary">✓</span> Quality Assurance
+                            </span>
+                            <span class="flex items-center gap-2 text-sm font-semibold">
+                                <span class="text-primary">✓</span> Technical Expertise
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-2 gap-4">
+                        <div class="surface rounded-3xl p-7">
+                            <span class="text-primary text-3xl">⚡</span>
+                            <h3 class="text-4xl font-black mt-5">2,500+</h3>
+                            <p class="muted text-sm mt-2">Products Stocked</p>
+                        </div>
+                        <div class="surface rounded-3xl p-7 mt-8">
+                            <span class="text-primary text-3xl">🏗️</span>
+                            <h3 class="text-4xl font-black mt-5">500+</h3>
+                            <p class="muted text-sm mt-2">Projects Supplied</p>
+                        </div>
+                        <div class="surface rounded-3xl p-7">
+                            <span class="text-primary text-3xl">🚚</span>
+                            <h3 class="text-4xl font-black mt-5">98%</h3>
+                            <p class="muted text-sm mt-2">On-Time Delivery</p>
+                        </div>
+                        <div class="surface rounded-3xl p-7 mt-8">
+                            <span class="text-primary text-3xl">🛡️</span>
+                            <h3 class="text-4xl font-black mt-5">20+</h3>
+                            <p class="muted text-sm mt-2">Years of Expertise</p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- Products -->
+        <section id="products" class="py-24">
+            <div class="max-w-7xl mx-auto px-6">
+
+                <div class="text-center max-w-2xl mx-auto">
+                    <span class="text-primary text-sm font-bold uppercase tracking-widest">Our Catalog</span>
+                    <h2 class="text-4xl md:text-5xl font-black mt-4">Industrial Products. Proven Performance.</h2>
+                    <p class="muted mt-5 leading-7">
+                        Explore our selection of electrical equipment designed for demanding commercial and industrial applications.
+                    </p>
+                </div>
+
+                <div id="productFilters" class="flex flex-wrap justify-center gap-3 mt-10">
+                    <button data-filter="all" class="filter-btn active px-5 py-3 rounded-full text-sm font-bold surface">All Items</button>
+                    <button data-filter="transformers" class="filter-btn px-5 py-3 rounded-full text-sm font-bold surface">Transformers</button>
+                    <button data-filter="cabling" class="filter-btn px-5 py-3 rounded-full text-sm font-bold surface">Cabling & Busbars</button>
+                    <button data-filter="protection" class="filter-btn px-5 py-3 rounded-full text-sm font-bold surface">Circuit Protection</button>
+                </div>
+
+                <div id="productGrid" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-7 mt-12">
+
+                    <article class="product-card surface rounded-3xl overflow-hidden border border-gray-200/60 dark:border-gray-700/50" data-category="protection">
+                        <img class="product-image" src="https://images.unsplash.com/photo-1621905251918-48416bd8575a?auto=format&fit=crop&w=800&q=80" alt="Industrial electrical circuit breaker">
+                        <div class="p-7">
+                            <div class="flex items-center justify-between gap-3">
+                                <span class="text-xs font-bold text-primary uppercase">Circuit Protection</span>
+                                <span class="text-xs text-green-500 font-bold">● In Stock</span>
+                            </div>
+                            <h3 class="text-xl font-bold mt-4">Vacuum Circuit Breakers</h3>
+                            <p class="muted text-sm leading-6 mt-3">Reliable medium-voltage switching and protection systems for industrial power networks.</p>
+                            <a href="#contact" class="inline-flex mt-6 text-primary font-bold text-sm">Request Inquiry →</a>
+                        </div>
+                    </article>
+
+                    <article class="product-card surface rounded-3xl overflow-hidden border border-gray-200/60 dark:border-gray-700/50" data-category="cabling">
+                        <img class="product-image" src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?auto=format&fit=crop&w=800&q=80" alt="Industrial copper electrical cables">
+                        <div class="p-7">
+                            <div class="flex items-center justify-between gap-3">
+                                <span class="text-xs font-bold text-primary uppercase">Cabling & Busbars</span>
+                                <span class="text-xs text-green-500 font-bold">● In Stock</span>
+                            </div>
+                            <h3 class="text-xl font-bold mt-4">Armored Copper Cables</h3>
+                            <p class="muted text-sm leading-6 mt-3">Heavy-duty insulated copper cabling engineered for secure industrial installations.</p>
+                            <a href="#contact" class="inline-flex mt-6 text-primary font-bold text-sm">Request Inquiry →</a>
+                        </div>
+                    </article>
+
+                    <article class="product-card surface rounded-3xl overflow-hidden border border-gray-200/60 dark:border-gray-700/50" data-category="transformers">
+                        <img class="product-image" src="https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?auto=format&fit=crop&w=800&q=80" alt="Electrical power transformer installation">
+                        <div class="p-7">
+                            <div class="flex items-center justify-between gap-3">
+                                <span class="text-xs font-bold text-primary uppercase">Transformers</span>
+                                <span class="text-xs text-green-500 font-bold">● Available</span>
+                            </div>
+                            <h3 class="text-xl font-bold mt-4">Power Distribution Transformers</h3>
+                            <p class="muted text-sm leading-6 mt-3">Efficient power transformation solutions for commercial and industrial infrastructure.</p>
+                            <a href="#contact" class="inline-flex mt-6 text-primary font-bold text-sm">Request Inquiry →</a>
+                        </div>
+                    </article>
+
+                    <article class="product-card surface rounded-3xl overflow-hidden border border-gray-200/60 dark:border-gray-700/50" data-category="protection">
+                        <img class="product-image" src="https://images.unsplash.com/photo-1621905252507-b35492cc74b4?auto=format&fit=crop&w=800&q=80" alt="Electrical modular cabinet">
+                        <div class="p-7">
+                            <div class="flex items-center justify-between gap-3">
+                                <span class="text-xs font-bold text-primary uppercase">Circuit Protection</span>
+                                <span class="text-xs text-green-500 font-bold">● In Stock</span>
+                            </div>
+                            <h3 class="text-xl font-bold mt-4">Modular Distribution Cabinets</h3>
+                            <p class="muted text-sm leading-6 mt-3">Configurable enclosures for organized and protected electrical distribution.</p>
+                            <a href="#contact" class="inline-flex mt-6 text-primary font-bold text-sm">Request Inquiry →</a>
+                        </div>
+                    </article>
+
+                    <article class="product-card surface rounded-3xl overflow-hidden border border-gray-200/60 dark:border-gray-700/50" data-category="cabling">
+                        <img class="product-image" src="https://images.unsplash.com/photo-1513828583688-c52646e6b309?auto=format&fit=crop&w=800&q=80" alt="Industrial electrical busbar system">
+                        <div class="p-7">
+                            <div class="flex items-center justify-between gap-3">
+                                <span class="text-xs font-bold text-primary uppercase">Cabling & Busbars</span>
+                                <span class="text-xs text-green-500 font-bold">● Available</span>
+                            </div>
+                            <h3 class="text-xl font-bold mt-4">Copper Busbar Systems</h3>
+                            <p class="muted text-sm leading-6 mt-3">High-conductivity busbar solutions for efficient power distribution assemblies.</p>
+                            <a href="#contact" class="inline-flex mt-6 text-primary font-bold text-sm">Request Inquiry →</a>
+                        </div>
+                    </article>
+
+                    <article class="product-card surface rounded-3xl overflow-hidden border border-gray-200/60 dark:border-gray-700/50" data-category="transformers">
+                        <img class="product-image" src="https://images.unsplash.com/photo-1548337138-e87d889cc369?auto=format&fit=crop&w=800&q=80" alt="Industrial electrical power equipment">
+                        <div class="p-7">
+                            <div class="flex items-center justify-between gap-3">
+                                <span class="text-xs font-bold text-primary uppercase">Transformers</span>
+                                <span class="text-xs text-green-500 font-bold">● Available</span>
+                            </div>
+                            <h3 class="text-xl font-bold mt-4">Industrial Power Units</h3>
+                            <p class="muted text-sm leading-6 mt-3">Power equipment designed to support stable and dependable industrial operations.</p>
+                            <a href="#contact" class="inline-flex mt-6 text-primary font-bold text-sm">Request Inquiry →</a>
+                        </div>
+                    </article>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- Core Features -->
+        <section id="features" class="py-24 bg-blue-500/[.035]">
+            <div class="max-w-7xl mx-auto px-6">
+                <div class="max-w-2xl mx-auto text-center">
+                    <span class="text-primary text-sm font-bold uppercase tracking-widest">Why VoltCraft</span>
+                    <h2 class="text-4xl md:text-5xl font-black mt-4">More Than Equipment. A Complete Partner.</h2>
+                    <p class="muted mt-5 leading-7">Our capabilities go beyond product supply to deliver dependable solutions for complex electrical environments.</p>
+                </div>
+
+                <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 mt-14">
+
+                    <article class="surface rounded-3xl p-8">
+                        <div class="icon-box w-14 h-14 rounded-2xl flex items-center justify-center text-2xl">⚙️</div>
+                        <h3 class="font-bold text-xl mt-6">Smart Integration</h3>
+                        <p class="muted text-sm leading-7 mt-3">Connected electrical solutions designed for efficient monitoring and smarter infrastructure.</p>
+                    </article>
+
+                    <article class="surface rounded-3xl p-8">
+                        <div class="icon-box w-14 h-14 rounded-2xl flex items-center justify-center text-2xl">⚡</div>
+                        <h3 class="font-bold text-xl mt-6">Peak Load Tolerance</h3>
+                        <p class="muted text-sm leading-7 mt-3">Equipment selected to support demanding electrical loads and challenging operating conditions.</p>
+                    </article>
+
+                    <article class="surface rounded-3xl p-8">
+                        <div class="icon-box w-14 h-14 rounded-2xl flex items-center justify-center text-2xl">🌐</div>
+                        <h3 class="font-bold text-xl mt-6">Global Compliance</h3>
+                        <p class="muted text-sm leading-7 mt-3">Products sourced with attention to recognized international technical standards.</p>
+                    </article>
+
+                    <article class="surface rounded-3xl p-8">
+                        <div class="icon-box w-14 h-14 rounded-2xl flex items-center justify-center text-2xl">🛠️</div>
+                        <h3 class="font-bold text-xl mt-6">24/7 Field Support</h3>
+                        <p class="muted text-sm leading-7 mt-3">Technical assistance and responsive support to help keep critical operations moving.</p>
+                    </article>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- Feature Stories -->
+        <section class="w-full">
+
+            <article class="feature-story py-20">
+                <div class="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-14 items-center">
+                    <div>
+                        <div class="icon-box w-16 h-16 rounded-2xl flex items-center justify-center text-3xl">⚙️</div>
+                        <span class="text-primary text-xs font-bold tracking-widest uppercase block mt-7">01 / Smart Integration</span>
+                        <h2 class="text-4xl font-black mt-4">Intelligence Behind Every Connection.</h2>
+                        <p class="muted leading-8 mt-6">Modern electrical infrastructure requires more than individual components. We support integrated distribution solutions that help businesses improve visibility, optimize system performance, and prepare their facilities for evolving operational demands.</p>
+                        <a href="#contact" class="inline-flex mt-7 btn-primary px-6 py-3 rounded-full font-bold text-sm">Learn More →</a>
+                    </div>
+                    <div class="rounded-[2rem] overflow-hidden h-80">
+                        <img class="w-full h-full object-cover" src="https://images.unsplash.com/photo-1581092160562-40aa08e78837?auto=format&fit=crop&w=1000&q=80" alt="Electrical engineering integration">
+                    </div>
+                </div>
+            </article>
+
+            <article class="feature-story story-alt py-20">
+                <div class="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-14 items-center">
+                    <div class="rounded-[2rem] overflow-hidden h-80 md:order-1">
+                        <img class="w-full h-full object-cover" src="https://images.unsplash.com/photo-1513828583688-c52646e6b309?auto=format&fit=crop&w=1000&q=80" alt="Heavy industrial power equipment">
+                    </div>
+                    <div>
+                        <div class="icon-box w-16 h-16 rounded-2xl flex items-center justify-center text-3xl">⚡</div>
+                        <span class="text-primary text-xs font-bold tracking-widest uppercase block mt-7">02 / Peak Load Tolerance</span>
+                        <h2 class="text-4xl font-black mt-4">Ready for the Demands of Industry.</h2>
+                        <p class="muted leading-8 mt-6">Industrial operations cannot afford unreliable electrical infrastructure. Our equipment portfolio includes solutions selected for high-load applications, helping facilities maintain stable distribution and dependable performance under demanding conditions.</p>
+                        <a href="#products" class="inline-flex mt-7 btn-primary px-6 py-3 rounded-full font-bold text-sm">Learn More →</a>
+                    </div>
+                </div>
+            </article>
+
+            <article class="feature-story py-20">
+                <div class="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-14 items-center">
+                    <div>
+                        <div class="icon-box w-16 h-16 rounded-2xl flex items-center justify-center text-3xl">🌐</div>
+                        <span class="text-primary text-xs font-bold tracking-widest uppercase block mt-7">03 / Global Compliance</span>
+                        <h2 class="text-4xl font-black mt-4">Quality Without Compromise.</h2>
+                        <p class="muted leading-8 mt-6">Every electrical project depends on equipment that meets its technical and safety requirements. We prioritize dependable sourcing and product documentation, helping procurement teams identify suitable solutions for their project specifications.</p>
+                        <a href="#contact" class="inline-flex mt-7 btn-primary px-6 py-3 rounded-full font-bold text-sm">Learn More →</a>
+                    </div>
+                    <div class="rounded-[2rem] overflow-hidden h-80">
+                        <img class="w-full h-full object-cover" src="https://images.unsplash.com/photo-1581092921461-eab62e97a780?auto=format&fit=crop&w=1000&q=80" alt="Industrial quality engineering">
+                    </div>
+                </div>
+            </article>
+
+            <article class="feature-story story-alt py-20">
+                <div class="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-14 items-center">
+                    <div class="rounded-[2rem] overflow-hidden h-80 md:order-1">
+                        <img class="w-full h-full object-cover" src="https://images.unsplash.com/photo-1581092580497-e0d23cbdf1dc?auto=format&fit=crop&w=1000&q=80" alt="Electrical field technical support">
+                    </div>
+                    <div>
+                        <div class="icon-box w-16 h-16 rounded-2xl flex items-center justify-center text-3xl">🛠️</div>
+                        <span class="text-primary text-xs font-bold tracking-widest uppercase block mt-7">04 / Field Support</span>
+                        <h2 class="text-4xl font-black mt-4">Support That Keeps You Moving.</h2>
+                        <p class="muted leading-8 mt-6">When operational challenges arise, timely technical communication matters. Our support approach focuses on responsive coordination, product guidance, and practical assistance throughout the procurement and supply process.</p>
+                        <a href="#contact" class="inline-flex mt-7 btn-primary px-6 py-3 rounded-full font-bold text-sm">Learn More →</a>
+                    </div>
+                </div>
+            </article>
+
+        </section>
+
+        <!-- Testimonials -->
+        <section id="testimonials" class="py-24">
+            <div class="max-w-7xl mx-auto px-6">
+                <div class="text-center max-w-2xl mx-auto">
+                    <span class="text-primary text-sm font-bold uppercase tracking-widest">Client Feedback</span>
+                    <h2 class="text-4xl md:text-5xl font-black mt-4">Built on Trust. Proven Through Results.</h2>
+                    <p class="muted mt-5 leading-7">Long-term partnerships are built through consistent service and dependable supply.</p>
+                </div>
+
+                <div class="grid md:grid-cols-3 gap-7 mt-14">
+
+                    <article class="surface rounded-3xl p-8">
+                        <div class="text-amber-400 tracking-widest text-lg">★★★★★</div>
+                        <p class="muted leading-8 mt-6">"VoltCraft provided a dependable supply process for our infrastructure requirements. Their communication and product coordination made a real difference."</p>
+                        <div class="flex items-center gap-4 mt-8">
+                            <div class="w-12 h-12 rounded-full bg-blue-500/15 text-primary flex items-center justify-center font-black">JM</div>
+                            <div>
+                                <h3 class="font-bold">James Mitchell</h3>
+                                <p class="muted text-xs mt-1">Infrastructure Project Lead</p>
+                            </div>
+                        </div>
+                    </article>
+
+                    <article class="surface rounded-3xl p-8">
+                        <div class="text-amber-400 tracking-widest text-lg">★★★★★</div>
+                        <p class="muted leading-8 mt-6">"The team understands the challenges of industrial operations. Their attention to specifications and delivery coordination has been valuable."</p>
+                        <div class="flex items-center gap-4 mt-8">
+                            <div class="w-12 h-12 rounded-full bg-blue-500/15 text-primary flex items-center justify-center font-black">SR</div>
+                            <div>
+                                <h3 class="font-bold">Sarah Reynolds</h3>
+                                <p class="muted text-xs mt-1">Plant Operations Manager</p>
+                            </div>
+                        </div>
+                    </article>
+
+                    <article class="surface rounded-3xl p-8">
+                        <div class="text-amber-400 tracking-widest text-lg">★★★★★</div>
+                        <p class="muted leading-8 mt-6">"A professional procurement partner with a clear understanding of industrial electrical supply requirements. We value their consistent service."</p>
+                        <div class="flex items-center gap-4 mt-8">
+                            <div class="w-12 h-12 rounded-full bg-blue-500/15 text-primary flex items-center justify-center font-black">DW</div>
+                            <div>
+                                <h3 class="font-bold">Daniel Walker</h3>
+                                <p class="muted text-xs mt-1">Procurement Director</p>
+                            </div>
+                        </div>
+                    </article>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact -->
+        <section id="contact" class="py-24 bg-blue-500/[.035]">
+            <div class="max-w-7xl mx-auto px-6">
+
+                <div class="grid lg:grid-cols-2 gap-16">
+
+                    <div>
+                        <span class="text-primary text-sm font-bold uppercase tracking-widest">Get in Touch</span>
+                        <h2 class="text-4xl md:text-5xl font-black mt-5 leading-tight">Let's Power Your Next Project.</h2>
+                        <p class="muted leading-8 mt-6 max-w-lg">Tell us about your electrical equipment requirements. Our team will review your specifications and coordinate the next steps.</p>
+
+                        <div class="space-y-6 mt-12">
+                            <div class="flex gap-5 items-center">
+                                <div class="icon-box w-14 h-14 rounded-2xl flex items-center justify-center text-xl">☎</div>
+                                <div>
+                                    <p class="muted text-sm">Phone</p>
+                                    <p class="font-bold mt-1">+1 (800) 555-0142</p>
+                                </div>
+                            </div>
+
+                            <div class="flex gap-5 items-center">
+                                <div class="icon-box w-14 h-14 rounded-2xl flex items-center justify-center text-xl">✉</div>
+                                <div>
+                                    <p class="muted text-sm">Email</p>
+                                    <p class="font-bold mt-1">sales@voltcraft.example</p>
+                                </div>
+                            </div>
+
+                            <div class="flex gap-5 items-center">
+                                <div class="icon-box w-14 h-14 rounded-2xl flex items-center justify-center text-xl">◷</div>
+                                <div>
+                                    <p class="muted text-sm">Business Hours</p>
+                                    <p class="font-bold mt-1">Monday – Friday | 8 AM – 6 PM</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <form id="quoteForm" class="surface rounded-[2rem] p-8 md:p-10 shadow-xl border border-gray-200/50 dark:border-gray-700/50">
+                        <h3 class="text-2xl font-black">Request a Quote</h3>
+                        <p class="muted text-sm mt-2 mb-8">Complete the form with your project details.</p>
+
+                        <div class="grid sm:grid-cols-2 gap-5">
+                            <div>
+                                <label for="fullName" class="block text-sm font-semibold mb-2">Full Name</label>
+                                <input id="fullName" name="fullName" type="text" required minlength="2" autocomplete="name" placeholder="Your name" class="w-full border border-gray-200 dark:border-gray-700 rounded-xl px-4 py-4 text-sm">
+                            </div>
+
+                            <div>
+                                <label for="company" class="block text-sm font-semibold mb-2">Company</label>
+                                <input id="company" name="company" type="text" required autocomplete="organization" placeholder="Company name" class="w-full border border-gray-200 dark:border-gray-700 rounded-xl px-4 py-4 text-sm">
+                            </div>
+                        </div>
+
+                        <div class="mt-5">
+                            <label for="email" class="block text-sm font-semibold mb-2">Work Email</label>
+                            <input id="email" name="email" type="email" required autocomplete="email" placeholder="name@company.com" class="w-full border border-gray-200 dark:border-gray-700 rounded-xl px-4 py-4 text-sm">
+                        </div>
+
+                        <div class="mt-5">
+                            <label for="specifications" class="block text-sm font-semibold mb-2">Detailed Specifications</label>
+                            <textarea id="specifications" name="specifications" rows="5" required minlength="10" placeholder="Describe your equipment requirements, quantities, technical specifications, and project timeline..." class="w-full border border-gray-200 dark:border-gray-700 rounded-xl px-4 py-4 text-sm resize-y"></textarea>
+                        </div>
+
+                        <button type="submit" class="btn-primary w-full rounded-full py-4 font-bold mt-7">
+                            Submit Request →
+                        </button>
+
+                        <p id="formMessage" role="status" aria-live="polite" class="text-sm mt-4 text-center"></p>
+                    </form>
+
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="pt-16 pb-8 border-t border-gray-200 dark:border-gray-800">
+        <div class="max-w-7xl mx-auto px-6">
+
+            <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-12 pb-14">
+
+                <div class="lg:col-span-2">
+                    <a href="#home" class="inline-flex items-center gap-3">
+                        <div class="w-11 h-11 rounded-2xl bg-primary flex items-center justify-center text-white font-black text-xl">V</div>
+                        <span class="font-black text-2xl">VoltCraft</span>
+                    </a>
+                    <p class="muted max-w-md leading-7 mt-6">
+                        Delivering dependable electrical equipment and industrial supply solutions that support the infrastructure of tomorrow.
+                    </p>
+                </div>
+
+                <div>
+                    <h3 class="font-bold text-lg">Quick Links</h3>
+                    <div class="space-y-4 mt-6 text-sm muted">
+                        <a class="block hover:text-primary" href="#about">About Us</a>
+                        <a class="block hover:text-primary" href="#products">Products</a>
+                        <a class="block hover:text-primary" href="#features">Solutions</a>
+                        <a class="block hover:text-primary" href="#contact">Contact</a>
+                    </div>
+                </div>
+
+                <div>
+                    <h3 class="font-bold text-lg">Corporate</h3>
+                    <div class="space-y-4 mt-6 text-sm muted">
+                        <a class="block hover:text-primary" href="#terms">Terms</a>
+                        <a class="block hover:text-primary" href="#privacy">Privacy</a>
+                        <a class="block hover:text-primary" href="#compliance">Compliance</a>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="border-t border-gray-200 dark:border-gray-800 pt-8 flex flex-col md:flex-row justify-between gap-4 text-sm muted">
+                <p>© <span id="currentYear"></span> VoltCraft Electrical Supplies Co. All rights reserved.</p>
+                <p>Powering Progress. Connecting Possibilities.</p>
+            </div>
+
+        </div>
+    </footer>
+
+</div>
+
+<script>
+    // Theme Management
+    const themeToggle = document.getElementById("themeToggle");
+    const themeIcon = document.getElementById("themeIcon");
+    const html = document.documentElement;
+
+    function updateThemeIcon() {
+        const isDark = html.classList.contains("dark");
+        themeIcon.textContent = isDark ? "☀️" : "🌙";
+    }
+
+    themeToggle.addEventListener("click", () => {
+        const isDark = html.classList.toggle("dark");
+
+        localStorage.setItem(
+            "voltcraft-theme",
+            isDark ? "dark" : "light"
+        );
+
+        updateThemeIcon();
+    });
+
+    updateThemeIcon();
+
+    // Startup Animation
+    window.addEventListener("load", () => {
+        document.getElementById("pageContent").classList.add("loaded");
+    });
+
+    // Mobile Navigation
+    const menuToggle = document.getElementById("menuToggle");
+    const mobileMenu = document.getElementById("mobileMenu");
+
+    menuToggle.addEventListener("click", () => {
+        mobileMenu.classList.toggle("hidden");
+        menuToggle.textContent = mobileMenu.classList.contains("hidden") ? "☰" : "✕";
+    });
+
+    mobileMenu.querySelectorAll("a").forEach(link => {
+        link.addEventListener("click", () => {
+            mobileMenu.classList.add("hidden");
+            menuToggle.textContent = "☰";
+        });
+    });
+
+    // Product Filtering
+    const filterButtons = document.querySelectorAll(".filter-btn");
+    const productCards = document.querySelectorAll(".product-card");
+
+    filterButtons.forEach(button => {
+        button.addEventListener("click", () => {
+            const filter = button.dataset.filter;
+
+            filterButtons.forEach(item => item.classList.remove("active"));
+            button.classList.add("active");
+
+            productCards.forEach(card => {
+                const matches =
+                    filter === "all" || card.dataset.category === filter;
+
+                card.classList.toggle("hidden", !matches);
+            });
+        });
+    });
+
+    // Quote Form
+    const quoteForm = document.getElementById("quoteForm");
+    const formMessage = document.getElementById("formMessage");
+
+    quoteForm.addEventListener("submit", event => {
+        event.preventDefault();
+
+        if (!quoteForm.reportValidity()) return;
+
+        formMessage.textContent =
+            "Your request has been validated. Please connect a backend to receive and process submissions.";
+
+        formMessage.className = "text-sm mt-4 text-center text-primary font-semibold";
+
+        quoteForm.reset();
+    });
+
+    // Dynamic Copyright Year
+    document.getElementById("currentYear").textContent =
+        new Date().getFullYear();
+</script>
+
+</body>
+</html>
